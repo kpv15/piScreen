@@ -3,9 +3,9 @@ from threading import Event
 
 
 class KeyListener:
-    BOUNCE_TIME = 600
+    __BOUNCE_TIME = 600
 
-    registered_events: dict[int, Event] = {}
+    __registered_events: dict[int, Event] = {}
 
     def __init__(self):
         self.init_gpio()
@@ -16,14 +16,14 @@ class KeyListener:
         GPIO.setup(13, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
         GPIO.setup(26, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-        GPIO.add_event_detect(6, GPIO.RISING, callback=self.button_callback, bouncetime=self.BOUNCE_TIME)
-        GPIO.add_event_detect(13, GPIO.RISING, callback=self.button_callback, bouncetime=self.BOUNCE_TIME)
-        GPIO.add_event_detect(19, GPIO.RISING, callback=self.button_callback, bouncetime=self.BOUNCE_TIME)
-        GPIO.add_event_detect(26, GPIO.RISING, callback=self.button_callback, bouncetime=self.BOUNCE_TIME)
+        GPIO.add_event_detect(6, GPIO.RISING, callback=self.button_callback, bouncetime=self.__BOUNCE_TIME)
+        GPIO.add_event_detect(13, GPIO.RISING, callback=self.button_callback, bouncetime=self.__BOUNCE_TIME)
+        GPIO.add_event_detect(19, GPIO.RISING, callback=self.button_callback, bouncetime=self.__BOUNCE_TIME)
+        GPIO.add_event_detect(26, GPIO.RISING, callback=self.button_callback, bouncetime=self.__BOUNCE_TIME)
 
     def button_callback(self, key_id):
         print('Button ' + str(key_id) + ' pressed')
-        self.registered_events[key_id].set()
+        self.__registered_events[key_id].set()
 
     def register_event(self, key_id: int, event: Event):
-        self.registered_events[key_id] = event
+        self.__registered_events[key_id] = event
