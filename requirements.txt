@@ -1,0 +1,2 @@
+adafruit-circuitpython-ssd1306>=2.12.14
+RPi.GPIO>=0.7.1
