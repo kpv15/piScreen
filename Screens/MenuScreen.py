@@ -18,7 +18,9 @@ class MenuScreen:
 
     def get_selection(self):
         button = None
-        while not (button is not None and (button is Button.RETURN)):
+        while not (button is Button.RETURN):
+            if button is Button.OK:
+                return self.__menu_list[self.__current_index]
             self.__scroll_cursor(button)
             self.__scroll_list()
 
@@ -30,6 +32,7 @@ class MenuScreen:
             button = self.__inputEvent.wait()
 
         print("end of clock screen")
+        return None
 
     def __scroll_cursor(self, button):
         if button is Button.UP:
