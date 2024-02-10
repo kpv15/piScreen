@@ -7,6 +7,7 @@ from Keyboard.KeyEvent import KeyEvent
 
 class MenuScreen:
     __LANE_HEIGHT = 10
+    __EXIT_LABEL = 'EXIT'
     __first_printed_element = 0
     __current_index = 0
 
@@ -14,13 +15,12 @@ class MenuScreen:
         self.__font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 10)
         self.__disp = disp
         self.__inputEvent = input_event
+        elements_list.append(self.__EXIT_LABEL)
         self.__menu_list = elements_list
 
     def get_selection(self):
         button = None
-        while not (button is Button.RETURN):
-            if button is Button.OK:
-                return self.__menu_list[self.__current_index]
+        while button is not Button.RETURN and button is not Button.OK:
             self.__scroll_cursor(button)
             self.__scroll_list()
 
@@ -31,8 +31,12 @@ class MenuScreen:
             self.__disp.show()
             button = self.__inputEvent.wait()
 
-        print("end of clock screen")
-        return None
+        selected_label = self.__menu_list[self.__current_index]
+        if button is Button.RETURN or selected_label == self.__EXIT_LABEL:
+            print("selected EXIT or press return")
+            return None
+        print("selected: " + selected_label)
+        return selected_label
 
     def __scroll_cursor(self, button):
         if button is Button.UP:
@@ -45,7 +49,6 @@ class MenuScreen:
                 self.__current_index = 0
 
     def __scroll_list(self):
-        print("curr: " + str(self.__current_index) + " first: " + str(self.__first_printed_element))
         if self.__current_index - self.__first_printed_element > 2:
             self.__first_printed_element += 1
         elif self.__current_index - self.__first_printed_element < 0:
