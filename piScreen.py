@@ -15,8 +15,9 @@ if __name__ == "__main__":
     disp = SSD1306_I2C(WIDTH, HEIGHT, i2c)
 
     key_listener = KeyListener()
-    menu_screen = MenuScreen(disp, key_listener.inputEvent)
-    menu_screen.run()
+    elements_list = ['STATS', 'CLOCK', 'SETTINGS', 'EXIT']
+    menu_screen = MenuScreen(disp, key_listener.inputEvent, elements_list)
+    menu_screen.get_selection()
 
     disp.poweroff()
     print("end of main thread")
