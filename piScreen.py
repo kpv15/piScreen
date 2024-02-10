@@ -5,18 +5,18 @@ import board
 
 from Keyboard.KeyListener import KeyListener
 from Screens.ClockScreen import ClockScreen
+from Screens.MenuScreen import MenuScreen
 
 WIDTH = 128
 HEIGHT = 32
-LINE_HEIGHT = 12
 
 if __name__ == "__main__":
     i2c = busio.I2C(board.SCL, board.SDA)
     disp = SSD1306_I2C(WIDTH, HEIGHT, i2c)
 
     key_listener = KeyListener()
-    clock_screen = ClockScreen(disp, key_listener.inputEvent)
-    clock_screen.run()
+    menu_screen = MenuScreen(disp, key_listener.inputEvent)
+    menu_screen.run()
 
     disp.poweroff()
     print("end of main thread")

@@ -5,7 +5,7 @@ from Keyboard.KeyEvent import KeyEvent
 
 
 class KeyListener:
-    __BOUNCE_TIME = 1000
+    __BOUNCE_TIME = 200
     inputEvent = KeyEvent()
 
     def __init__(self):
