@@ -1,18 +1,17 @@
 import RPi.GPIO as GPIO
-from threading import Event
 
 from Keyboard.Button import Button
+from Keyboard.KeyEvent import KeyEvent
 
 
 class KeyListener:
-    __BOUNCE_TIME = 600
-
-    __registered_events: dict[Button, Event] = {}
+    __BOUNCE_TIME = 1000
+    inputEvent = KeyEvent()
 
     def __init__(self):
-        self.init_gpio()
+        self.__init_gpio()
 
-    def init_gpio(self):
+    def __init_gpio(self):
         GPIO.setmode(GPIO.BCM)
         self.__add_button(Button.OK)
         self.__add_button(Button.RETURN)
@@ -26,7 +25,5 @@ class KeyListener:
     def __button_callback(self, key_id):
         button = Button(key_id)
         print('Button ' + button.name + ' pressed')
-        self.__registered_events[button].set()
+        self.inputEvent.set(button)
 
-    def register_event(self, button: Button, event: Event):
-        self.__registered_events[button] = event
