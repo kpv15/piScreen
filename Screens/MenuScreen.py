@@ -11,16 +11,18 @@ class MenuScreen:
     __first_printed_element = 0
     __current_index = 0
 
-    def __init__(self, disp: SSD1306_I2C, input_event: KeyEvent, elements_list: list):
+    def __init__(self, disp: SSD1306_I2C, input_event: KeyEvent,
+                 elements_list: list, block_exit_by_return_button=False):
         self.__font = ImageFont.truetype('/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf', 10)
         self.__disp = disp
         self.__inputEvent = input_event
         elements_list.append(self.__EXIT_LABEL)
         self.__menu_list = elements_list
+        self.__block_exit_by_return_button = block_exit_by_return_button
 
     def get_selection(self):
         button = None
-        while button is not Button.RETURN and button is not Button.OK:
+        while (button is not Button.RETURN or self.__block_exit_by_return_button) and button is not Button.OK:
             self.__scroll_cursor(button)
             self.__scroll_list()
 
