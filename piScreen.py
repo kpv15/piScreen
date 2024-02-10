@@ -29,6 +29,3 @@ if __name__ == "__main__":
 
     disp.poweroff()
     print("end of main thread")
-
-class Menu:
-    pass
