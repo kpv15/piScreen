@@ -20,7 +20,7 @@ class ClockScreen:
         while not (button is not None and button is Button.RETURN):
             image = Image.new("1", (self.__disp.width, self.__disp.height))
             draw = ImageDraw.Draw(image)
-            draw.text((0, 1 + 0), time.strftime("%H:%M:%S", time.gmtime()), font=self.__font, fill=255)
+            draw.text((0, 1 + 0), time.strftime("%H:%M:%S", time.localtime()), font=self.__font, fill=255)
             self.__disp.image(image)
             self.__disp.show()
 
