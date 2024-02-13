@@ -7,6 +7,7 @@ from Keyboard.KeyListener import KeyListener
 from Screens.ClockScreen import ClockScreen
 from Screens.DisableScreen import DisableScreen
 from Screens.MenuScreen import MenuScreen
+from Screens.StatsScreen import StatsScreen
 
 WIDTH = 128
 HEIGHT = 32
@@ -39,6 +40,7 @@ if __name__ == "__main__":
 
     program_menu_map = {
         'CLOCK': ClockScreen(disp, key_listener.inputEvent),
+        'STATS': StatsScreen(disp, key_listener.inputEvent),
         'BRIGHTNESS': {
             'HIGH': lambda: disp.contrast(255),
             'LOW': lambda: disp.contrast(0)
